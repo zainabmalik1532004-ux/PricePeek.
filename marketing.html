@@ -1,100 +1,108 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>PRICEPEEK — Price Tracker</title>
-  <style>
-    body{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial;line-height:1.5;color:#0f172a;background:#f8fafc;padding:32px}
-    .container{max-width:900px;margin:0 auto;background:#fff;padding:28px;border-radius:12px;box-shadow:0 6px 24px rgba(2,6,23,.08)}
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PricePeek — Price Tracker</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+      :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--glass:rgba(255,255,255,0.04)}
+      *{box-sizing:border-box}
+      body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,#071127 0%, #071a2a 60%);-webkit-font-smoothing:antialiased}
+      .wrap{max-width:1100px;margin:48px auto;padding:28px}
+      .hero{display:flex;gap:28px;align-items:center}
+      .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
+      .title{font-size:36px;margin:0;color:#fff}
+      .tag{color:var(--muted);margin-top:8px}
+      .controls{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
+      .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none}
+      .btn-primary{background:linear-gradient(90deg,var(--accent),#0ea5a4);color:#042028}
+      .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+      .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
+      .feature{background:var(--glass);padding:14px;border-radius:10px;color:#d8e9f2}
+      .feature h4{margin:0 0 6px;font-size:16px}
+      pre{background:#07172a;padding:12px;border-radius:8px;color:#9bd5df;overflow:auto;white-space:pre}
+      footer{margin-top:28px;color:var(--muted);font-size:13px}
+      .meta a{color:#9eeaf9;text-decoration:none}
+      .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px}
+      @media (max-width:720px){.hero{flex-direction:column-reverse;text-align:center}}
     </style>
-    <!doctype html>
-    <html lang="en">
-      <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>pricecli — Lightweight Price Tracker</title>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-        <style>
-          :root{--bg:#0f172a;--card:#0b1220;--muted:#94a3b8;--accent:#06b6d4;--glass:rgba(255,255,255,0.04)}
-          *{box-sizing:border-box}
-          body{margin:0;font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial;color:#e6eef6;background:linear-gradient(180deg,#071127 0%, #071a2a 60%);-webkit-font-smoothing:antialiased}
-          .wrap{max-width:1100px;margin:48px auto;padding:28px}
-          .hero{display:flex;gap:28px;align-items:center}
-          .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);border-radius:14px;padding:28px;box-shadow:0 8px 30px rgba(2,6,23,.6)}
-          .title{font-size:36px;margin:0;color:#fff}
-          .tag{color:var(--muted);margin-top:8px}
-          .controls{margin-top:18px;display:flex;gap:12px}
-          .btn{display:inline-flex;align-items:center;gap:10px;padding:10px 16px;border-radius:10px;font-weight:700;text-decoration:none}
-          .btn-primary{background:linear-gradient(90deg,var(--accent),#0ea5a4);color:#042028}
-          .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
-          .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:20px}
-          .feature{background:var(--glass);padding:14px;border-radius:10px;color:#d8e9f2}
-          .feature h4{margin:0 0 6px;font-size:16px}
-          pre{background:#07172a;padding:12px;border-radius:8px;color:#9bd5df;overflow:auto}
-          footer{margin-top:28px;color:var(--muted);font-size:13px}
-          .meta a{color:#9eeaf9;text-decoration:none}
-          .badge{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);color:var(--muted);font-size:13px}
-          @media (max-width:720px){.hero{flex-direction:column-reverse;text-align:center}}
-        </style>
-      </head>
-      <body>
-        <div class="wrap">
-          <div class="card hero">
-            <div style="flex:1">
-              <div class="badge">Open-source · CLI</div>
-              <h1 class="title">PricePeek</h1>
-              <p class="tag">Track product prices by category, save product links and timestamps, find cheapest options and export CSV on demand — lightweight Rust CLI.</p>
+  </head>
 
-              <div class="controls">
-                <a class="btn btn-primary" href="https://github.com/USERNAME/REPO/releases/latest/download/pricepeek.exe">Download Windows .exe</a>
-                <a class="btn btn-ghost" href="https://github.com/USERNAME/REPO">View repository</a>
-              </div>
+  <body>
+    <div class="wrap">
+      <div class="card hero">
+        <div style="flex:1">
+          <div class="badge">Open-source · CLI</div>
+          <h1 class="title">PricePeek</h1>
+          <p class="tag">
+            Track product prices by category, save product links and timestamps, find cheapest options and export CSV on demand — lightweight Rust CLI.
+          </p>
 
-              <div style="margin-top:18px">
-                <span class="meta">Latest release:</span>
-                <span style="margin-left:8px;color:#9eeaf9;font-weight:600">v1.0.0</span>
-              </div>
-            </div>
-
-            <div style="width:360px;max-width:40%">
-              <div style="background:linear-gradient(180deg,#071a2a, #0b2233);border-radius:10px;padding:14px;color:#bfeff4">
-                <strong>Interactive menu</strong>
-                <pre>1) Add product price
-    2) List all prices
-    3) Show cheapest option
-    4) Export data to CSV</pre>
-              </div>
-            </div>
+          <div class="controls">
+            <a class="btn btn-primary" href="https://github.com/USERNAME/REPO/releases/latest/download/pricepeek.exe">
+              Download Windows .exe
+            </a>
+            <a class="btn btn-ghost" href="https://github.com/USERNAME/REPO">
+              View repository
+            </a>
           </div>
 
-          <div style="display:flex;gap:18px;margin-top:22px;align-items:flex-start">
-            <div style="flex:1" class="card">
-              <h3 style="margin-top:0">Why PricePeek?</h3>
-              <p class="meta">Designed for simplicity — ideal for quick price comparisons, demos, teaching, or personal shopping lists. Minimal UI, maximum portability.</p>
-
-              <div class="features">
-                <div class="feature"><h4>Add & Categorize</h4><div class="meta">Store product, category, price and link with timestamp.</div></div>
-                <div class="feature"><h4>List & Filter</h4><div class="meta">View all entries or filter by category.</div></div>
-                <div class="feature"><h4>Cheapest</h4><div class="meta">Identify lowest price overall or within a category.</div></div>
-                <div class="feature"><h4>Export CSV</h4><div class="meta">Explicit confirmation before export; choose category or all.</div></div>
-              </div>
-            </div>
-
-            <aside style="width:320px;max-width:35%" class="card">
-              <h4 style="margin-top:0">Quickstart</h4>
-              <pre>cargo build --release
-    # or with cross (Windows .exe)
-    cross build --target x86_64-pc-windows-gnu --release</pre>
-              <div style="margin-top:12px;color:var(--muted)">Download the pre-built Windows binary from the Releases page and run it directly.</div>
-            </aside>
+          <div style="margin-top:18px">
+            <span class="meta">Latest release:</span>
+            <span style="margin-left:8px;color:#9eeaf9;font-weight:600">v1.0.0</span>
           </div>
-
-          <footer>
-            <div class="meta">Repository: <a href="https://github.com/USERNAME/REPO">github.com/USERNAME/REPO</a></div>
-            <div class="meta" style="margin-top:6px">Download (Windows .exe): <a href="https://github.com/USERNAME/REPO/releases/latest/download/pricepeek.exe">pricepeek.exe</a></div>
-            <div style="margin-top:10px;color:var(--muted)">Replace <strong>USERNAME</strong> and <strong>REPO</strong> with your GitHub account and repository name to activate links.</div>
-          </footer>
         </div>
-      </body>
-    </html>
+
+        <div style="width:360px;max-width:40%">
+          <div style="background:linear-gradient(180deg,#071a2a, #0b2233);border-radius:10px;padding:14px;color:#bfeff4">
+            <strong>Interactive menu</strong>
+            <pre>1) Add product price
+2) List all prices
+3) Show cheapest option
+4) Export data to CSV
+5) Delete a product
+6) Exit</pre>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:18px;margin-top:22px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:320px" class="card">
+          <h3 style="margin-top:0">Why PricePeek?</h3>
+          <p class="meta">
+            Designed for simplicity — ideal for quick price comparisons, demos, teaching, or personal shopping lists. Minimal UI, maximum portability.
+          </p>
+
+          <div class="features">
+            <div class="feature"><h4>Add & Categorize</h4><div class="meta">Store product, category, price and link with timestamp.</div></div>
+            <div class="feature"><h4>List & Filter</h4><div class="meta">View all entries or filter by category.</div></div>
+            <div class="feature"><h4>Cheapest</h4><div class="meta">Identify lowest price overall or within a category.</div></div>
+            <div class="feature"><h4>Export CSV</h4><div class="meta">Explicit confirmation before export; choose category or all.</div></div>
+          </div>
+        </div>
+
+        <aside style="width:320px;max-width:35%;min-width:280px" class="card">
+          <h4 style="margin-top:0">Quickstart</h4>
+          <pre>cargo build --release</pre>
+          <div style="margin-top:12px;color:var(--muted)">
+            Download the pre-built Windows binary from the Releases page and run it directly.
+          </div>
+        </aside>
+      </div>
+
+      <footer>
+        <div class="meta">Repository: <a href="https://github.com/USERNAME/REPO">github.com/USERNAME/REPO</a></div>
+        <div class="meta" style="margin-top:6px">
+          Download (Windows .exe):
+          <a href="https://github.com/USERNAME/REPO/releases/latest/download/pricepeek.exe">pricepeek.exe</a>
+        </div>
+        <div style="margin-top:10px;color:var(--muted)">
+          Replace <strong>USERNAME</strong> and <strong>REPO</strong> with your GitHub account and repository name to activate links.
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
