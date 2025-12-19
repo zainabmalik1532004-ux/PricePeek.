@@ -1,3 +1,5 @@
+# PricePeek.
+
 # Price Tracker CLI (Rust) — CSV Price Comparison Tool
 
 A simple Rust command-line application that helps track product prices across different shops/websites.  
