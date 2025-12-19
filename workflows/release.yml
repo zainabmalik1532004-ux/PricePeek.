@@ -1,0 +1,57 @@
+name: Release Statically Linked Rust Binary
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        target:
+          - x86_64-unknown-linux-musl
+          - aarch64-unknown-linux-musl
+          - x86_64-pc-windows-gnu
+
+    env:
+      BINARY_NAME: pricepeek
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install Cross
+        run: cargo install cross
+
+      - name: Install Target for Cross Compilation
+        run: |
+          rustup target add ${{ matrix.target }} || true
+
+      - name: Build with Cross
+        run: cross build --target ${{ matrix.target }} --release --verbose
+
+      - name: Create Release Archive
+        run: |
+          mkdir -p release
+
+          if [[ "${{ matrix.target }}" == *"windows"* ]]; then
+            cp target/${{ matrix.target }}/release/${BINARY_NAME}.exe release/
+            zip -r ${GITHUB_RUN_ID}-${{ matrix.target }}.zip release
+          else
+            cp target/${{ matrix.target }}/release/${BINARY_NAME} release/ || true
+            tar -czvf ${GITHUB_RUN_ID}-${{ matrix.target }}.tar.gz -C release ${BINARY_NAME}
+          fi
+
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            *.tar.gz
+            *.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
